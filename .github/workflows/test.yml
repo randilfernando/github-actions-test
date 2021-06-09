@@ -17,6 +17,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
             repository: randilfernando/github-actions-test
-            ref: ${{ github.head_ref }}
+            ref: refs/pull/${{ github.event.inputs.pull }}/head
             token: ${{ secrets.GITHUB_TOKEN }}
             path: ./pull_request
