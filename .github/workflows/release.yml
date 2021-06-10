@@ -25,8 +25,8 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 with:
                     commitish: ${{ github.event.pull_request.head.ref }}
-                    tag_name: ${{ steps.generateVersion.outputs.generated-version }}
-                    release_name: ${{ steps.generateVersion.outputs.generated-version }}
-                    body: ${{ steps.createNotes.outputs.release-notes }}
+                    tag_name: "0.0.1"
+                    release_name: Test
+                    body: Test
                     draft: false
                     prerelease: false
