@@ -1,0 +1,32 @@
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java#apache-maven-with-a-settings-path
+
+name: Create release
+
+on:
+    pull_request:
+        types:
+            - closed
+        branches:
+            - production
+
+jobs:
+    release:
+
+        runs-on: ubuntu-18.04
+        timeout-minutes: 10
+        if: github.event.pull_request.merged == true
+
+        steps:
+            -   name: Create Release
+                id: create_release
+                uses: actions/create-release@v1
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                with:
+                    target_commitish: ${{ github.event.pull_request.head.ref }}
+                    tag_name: ${{ steps.generateVersion.outputs.generated-version }}
+                    release_name: ${{ steps.generateVersion.outputs.generated-version }}
+                    body: ${{ steps.createNotes.outputs.release-notes }}
+                    draft: false
+                    prerelease: false
